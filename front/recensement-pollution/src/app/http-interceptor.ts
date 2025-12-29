@@ -16,8 +16,6 @@ export class ApiHttpInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
 
-    console.log(this.jwtToken)
-
     this.jwtToken = this.store.selectSnapshot(AccesTokenState.getAccessToken);
 
     if (this.jwtToken && this.jwtToken !== '') {
@@ -37,7 +35,7 @@ export class ApiHttpInterceptor implements HttpInterceptor {
             if (tab.length > 1) {
               this.jwtToken = tab[1];
               console.log('Bearer récupéré : ' + this.jwtToken);
-               this.store.dispatch(new SetAccessToken(this.jwtToken));
+              this.store.dispatch(new SetAccessToken(this.jwtToken));
             }
           }
         }

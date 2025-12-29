@@ -12,7 +12,6 @@ import { Store } from '@ngxs/store';
 import { AuthState } from '../../shared/states/auth-state';
 import { AuthConnexion } from '../../shared/actions/auth-action';
 import { Auth } from '../../shared/models/auth';
-import { Utilisateur } from '../models/utilisateur';
 
 @Component({
   selector: 'app-signin',
@@ -50,14 +49,11 @@ export class Signin {
 
     this.utilisateurService.login(formData.login!, formData.password!).subscribe({
       next: (response) => {
-          
-        console.log(response)
-
-          this.isLoading = false;
-          const auth = new Auth(response.body!.id!, response.body!.nom!, response.body!.prenom!, response.body!.login!, response.body!.email!);
-          this.store.dispatch(new AuthConnexion(auth));
-          window.location.href = "/";
-        }, 
+        this.isLoading = false;
+        const auth = new Auth(response.body!.id!, response.body!.nom!, response.body!.prenom!, response.body!.login!, response.body!.email!);
+        this.store.dispatch(new AuthConnexion(auth));
+        window.location.href = "/";
+      }, 
       error: (err) => {
         console.error("Erreur lors de la connexion :", err);
         this.messageService.add({ severity: 'error', summary: 'Erreur', detail: "Login ou mot de passe incorrect" });

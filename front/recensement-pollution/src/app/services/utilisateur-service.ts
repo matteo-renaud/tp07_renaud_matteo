@@ -35,8 +35,6 @@ export class UtilisateurService {
     return this.http.post<Utilisateur>(`${apiUrl}/login`, body, httpOptions);
   }
 
-
-  // Déconnexion fictive (simulation)
   public logout() {
     this.utilisateurConnecte = undefined;
   }
